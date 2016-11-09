@@ -5,8 +5,9 @@ sess = requests.Session()
 url_CaoLiu = 'http://owxxww.com/index.php/'
 #url_JiShuTaoLun = url_CaoLiu+'thread0806.php?fid=7'
 url_JiShuTaoLun = 'http://owxxww.com/thread0806.php?fid=7'
+#page number
 payload = {'search':'','page':'1'}
-r = sess.get(url_JiShuTaoLun)
+r = sess.get(url_JiShuTaoLun, params=payload)
 soup = BeautifulSoup(r.content,"html.parser",from_encoding="gb18030")
 #print soup
 #soupContent = soup.prettify().encode('utf-8')
