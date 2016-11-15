@@ -1,13 +1,15 @@
+#!/usr/bin/python
+# -*- coding: gb18030 -*-
 import requests
 from bs4 import BeautifulSoup
 
 if __name__ == '__main__':
     sess = requests.Session()
-    url_CaoLiu = 'http://owxxww.com'
+    url_CaoLiu = 'http://cl.ek9.biz/'
     #url_JiShuTaoLun = url_CaoLiu+'thread0806.php?fid=7'
-    url_JiShuTaoLun = 'http://owxxww.com/thread0806.php?fid=7'
+    url_JiShuTaoLun = 'http://cl.ek9.biz/thread0806.php?fid=7'
     #page number
-    payload = {'search':'','page':'1'}
+    payload = {'search':'','page':'2'}
     r = sess.get(url_JiShuTaoLun, params=payload)
     soup = BeautifulSoup(r.content,"html.parser",from_encoding="gb18030")
     #print soup
@@ -22,11 +24,13 @@ if __name__ == '__main__':
             pageTitle = title.string
             #print title.string
         for auther in lineContent.findAll('td',class_="tal y-style"):
-            auther = auther.find('a').string
-            print auther
+            for auth in auther.findAll('a', class_='bl'):
+                auth = auth.string
+                #print auth
         for readNumber in lineContent.findAll('td',class_="tal f10 y-style"):
             readNumber = readNumber.string
 
-        print pageTitle, readNumber, auther
-        #print pageUrl
+        if auth == u'糖给你别打我':
+            print pageTitle, readNumber, auth
+            print pageUrl
 
